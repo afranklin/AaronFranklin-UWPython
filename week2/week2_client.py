@@ -5,9 +5,11 @@ port = 50000
 size = 1024
 s = socket.socket(socket.AF_INET, 
                   socket.SOCK_STREAM) 
-s.connect((host,port)) 
-s.send(2)
-s.send(3)
+s.connect((host,port))
+first = str(1)
+second = str(2)
+s.send(first)
+s.send(second)
 data = s.recv(size) 
 s.close() 
 print 'Received:', data

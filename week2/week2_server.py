@@ -13,7 +13,9 @@ while True:
     client, address = s.accept()
     print "first number"
     data1 = client.recv(size)
+    data1int = int(data1)
     print "second number"
     data2 = client.recv(size)
-    client.send(data1+data2)
+    data2int = int(data2)
+    client.send(data1int+data2int)
     client.close()
