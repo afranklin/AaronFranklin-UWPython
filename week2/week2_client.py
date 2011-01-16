@@ -1,7 +1,7 @@
 import socket 
 
 host = 'block115389-wtj.blueboxgrid.com'
-port = 50003
+port = 50004
 size = 1024
 s = socket.socket(socket.AF_INET, 
                   socket.SOCK_STREAM) 
