@@ -14,5 +14,5 @@ while True:
     data1 = client.recv(size)
     data2 = client.recv(size)
     solution = int(data1) + int(data2)
-    client.send(data1int+data2int)
+    client.send(solution)
     client.close()
