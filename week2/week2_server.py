@@ -2,7 +2,7 @@ import socket
 import time
 
 host = '' 
-port = 50002
+port = 50003
 backlog = 5 
 size = 1024 
 s = socket.socket(socket.AF_INET,
@@ -13,6 +13,7 @@ while True:
     client, address = s.accept()
     data1 = client.recv(size)
     data2 = client.recv(size)
-    solution = int(data1) + int(data2)
+    solution = str(int(data1) + int(data2))
+    print solution
     client.send(solution)
     client.close()
