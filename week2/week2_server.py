@@ -11,6 +11,9 @@ s.bind((host,port))
 s.listen(backlog) 
 while True: 
     client, address = s.accept()
-    data = client.recv(size) 
-    client.send(str(time.time()))
+    print "first number"
+    data1 = client.recv(size)
+    print "second number"
+    data2 = client.recv(size)
+    client.send(data1+data2)
     client.close()
