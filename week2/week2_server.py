@@ -2,7 +2,7 @@ import socket
 import time
 
 host = '' 
-port = 50000
+port = 50001
 backlog = 5 
 size = 1024 
 s = socket.socket(socket.AF_INET,
