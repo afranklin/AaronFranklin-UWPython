@@ -1,12 +1,15 @@
 import socket 
 
-host = 'block115379-pwc.blueboxgrid.com'
-port = 50000 
-size = 1024 
+host = 'block115389-wtj.blueboxgrid.com'
+port = 50004
+size = 1024
 s = socket.socket(socket.AF_INET, 
                   socket.SOCK_STREAM) 
-s.connect((host,port)) 
-s.send('Hello, world') 
+s.connect((host,port))
+first = str(1)
+second = str(2)
+s.send(first)
+s.send(second)
 data = s.recv(size) 
 s.close() 
 print 'Received:', data
