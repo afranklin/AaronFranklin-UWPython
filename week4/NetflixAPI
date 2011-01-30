@@ -1,0 +1,9 @@
+import netflix.py
+
+APP_NAME   = 'pythonapihomework'
+API_KEY    = '6w9g2g3pw8yc4chft8vxe3ve'
+API_SECRET = 'rD7ZK9MekD'
+CALLBACK   = 'http://www.cheekfreak.com'
+verbose    = False
+
+netflix = NetflixClient(APP_NAME, API_KEY, API_SECRET, CALLBACK, verbose)
