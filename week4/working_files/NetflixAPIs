@@ -1,0 +1,74 @@
+# Sample code to use the Netflix python client
+
+from Netflix import *
+import getopt
+import time 
+from datetime import datetime
+
+APP_NAME   = 'pythonapihomework'
+API_KEY    = '6w9g2g3pw8yc4chft8vxe3ve'
+API_SECRET = 'rD7ZK9MekD'
+CALLBACK = ''
+
+def doSearch(netflix, discs, arg):
+    ######################################
+    # Search for titles matching a string.
+    # To view all of the returned object, 
+    # you can add a simplejson.dumps(info)
+    ######################################  
+    print "*** RETRIEVINGS MATCHING %s ***" % arg
+    data = netflix.catalog.searchTitles(arg,0,10)
+    for info in data:
+        print info['title']['regular']
+        discs.append(info)
+
+def getTitleFromID(netflix,arg):
+    ######################################
+    # Grab a specific title from the ID. 
+    # The ID is available as part of the
+    # results from most queries (including
+    # the ones above.
+    ######################################  
+    print "*** Now we'll go ahead and try to retrieve a single movie via ID string ***"
+    print "Checking for " + arg
+    movie = netflix.catalog.getTitle(arg)
+    if movie['catalog_title']['title']['regular'] == "Flip Wilson":
+        print "It's a match, woo!"
+    return movie
+
+def getTitleInfo(netflix,movie):
+    ######################################
+    # You can retrieve information about 
+    # a specific title based on the 'links'
+    # which include formats, synopsis, etc.
+    ######################################  
+    print "*** Let's grab the format for this movie ***"
+    disc = NetflixDisc(movie['catalog_title'],netflix)
+    formats = disc.getInfo('formats')
+    print "Formats: %s" % simplejson.dumps(formats,indent=4)
+    return formats
+
+#    print "*** And the synopsis ***"
+#    synopsis = disc.getInfo('synopsis')
+#    print "Synopsis: %s" % simplejson.dumps(synopsis, indent=4)
+
+#    print "*** And the cast ***"
+#    cast = disc.getInfo('cast')
+#    print "Cast: %s" % simplejson.dumps(cast, indent=4)
+
+ 
+if __name__ == '__main__':  
+    queuedisc=False
+    verbose = False
+    usertoken = False
+    netflixClient = NetflixClient(APP_NAME, API_KEY, API_SECRET, CALLBACK, verbose)
+    user = None
+    discs=[]
+    
+    # Note that we have to sleep between queries to avoid the per-second cap on the API
+    time.sleep(1)
+    doSearch(netflixClient, discs, 'Dinner for Schmucks')
+    time.sleep(1)
+    movie = getTitleFromID(netflixClient,discs[0]['id'])
+    time.sleep(1)
+    formats = getTitleInfo(netflixClient,movie)
