@@ -6,15 +6,15 @@ import time
 from datetime import datetime
 from amazonproduct import API
 
-#Netflix IDs
-APP_NAME   = 'pythonapihomework'
-API_KEY    = '6w9g2g3pw8yc4chft8vxe3ve'
-API_SECRET = 'rD7ZK9MekD'
+#Netflix Keys
+APP_NAME   = ''
+API_KEY    = ''
+API_SECRET = ''
 CALLBACK = ''
 
-#Amazon IDs
-AWS_KEY = 'AKIAJM5FTNAKE7VWQYTA'
-SECRET_KEY = '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'
+#Amazon Keys
+AWS_KEY = ''
+SECRET_KEY = ''
 
 def doSearch(netflix, discs, arg):
     ######################################
@@ -24,7 +24,6 @@ def doSearch(netflix, discs, arg):
     ######################################  
     data = netflix.catalog.searchTitles(arg,0,2)
     for info in data:
-#        print info['title']['regular']
         discs.append(info)
 
 def getTitleFromID(netflix,arg):
@@ -45,22 +44,11 @@ def getTitleInfo(netflix,movie):
     ######################################  
     disc = NetflixDisc(movie['catalog_title'],netflix)
     formats = disc.getInfo('formats')
-#    print "Formats: %s" % simplejson.dumps(formats,indent=4)
     return formats
-
-#    print "*** And the synopsis ***"
-#    synopsis = disc.getInfo('synopsis')
-#    print "Synopsis: %s" % simplejson.dumps(synopsis, indent=4)
-
-#    print "*** And the cast ***"
-#    cast = disc.getInfo('cast')
-#    print "Cast: %s" % simplejson.dumps(cast, indent=4)
-
  
 if __name__ == '__main__':  
 
     amazon_only = []
-    today = datetime.now()
 
     #Get list of bestselling Amazon movies
     abestselling = []
@@ -71,7 +59,7 @@ if __name__ == '__main__':
             abestselling.append(movie.ItemAttributes.Title)
     print abestselling
 
-    #Query on Netflix and find the earliest availability date.  If it's in the future - it's available on Amazon but not Netflix.
+    #Query titles on Netflix and find earliest availability date. If it's in the future - it's available on Amazon but not Netflix.
     netflixClient = NetflixClient(APP_NAME, API_KEY, API_SECRET, CALLBACK, 'False')
     
     for film in abestselling:
@@ -85,7 +73,6 @@ if __name__ == '__main__':
         first_avail_unix = formats['delivery_formats']['availability'][0]['available_from']
         for i in range(len(formats['delivery_formats']['availability'])):
             avail_unix = formats['delivery_formats']['availability'][i]['available_from']
-            print datetime.fromtimestamp(float(avail_unix))
             if float(avail_unix) < float(first_avail_unix):
                 first_avail_unix = avail_unix
         avail = datetime.fromtimestamp(float(first_avail_unix))
