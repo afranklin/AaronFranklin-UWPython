@@ -17,7 +17,7 @@
 
 import os, socket, sys, subprocess
 
-defaults = ['127.0.0.1', '8085']
+defaults = ['0.0.0.0', '8085']
 mime_types = {'.jpg' : 'image/jpg', 
              '.gif' : 'image/gif', 
              '.png' : 'image/png',
