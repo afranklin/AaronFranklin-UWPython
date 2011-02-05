@@ -16,6 +16,7 @@
 #
 
 import os, socket, sys, subprocess
+from urlparse import urlparse
 
 defaults = ['0.0.0.0', '8085']
 mime_types = {'.jpg' : 'image/jpg', 
@@ -74,7 +75,6 @@ def listen(s):
     return connection.makefile('r+')
 
 def get_request(stream):
-    print "getrequest called with", stream
     method = None
     while True:
         line = stream.readline()
@@ -108,8 +108,9 @@ def get_content(uri):
     if pstart > -1:
         params = uri[pstart+1:]
         uri = uri[:pstart]
-        a = params[2:5]
-        b = params[8:11]
+        a = params[2:params.find('&')]
+        b = params[params.find('&')+3:]
+        print a, b
     try:
         path = '.' + uri
         if os.path.isfile(path):
