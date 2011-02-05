@@ -17,11 +17,12 @@
 
 import os, socket, sys, subprocess
 
-defaults = ['127.0.0.1', '8081']
+defaults = ['127.0.0.1', '8085']
 mime_types = {'.jpg' : 'image/jpg', 
              '.gif' : 'image/gif', 
              '.png' : 'image/png',
-             '.html' : 'text/html', 
+             '.html' : 'text/html',
+             '.py' : 'application/json',
              '.pdf' : 'application/pdf'}
 response = {}
 
@@ -73,10 +74,10 @@ def listen(s):
     return connection.makefile('r+')
 
 def get_request(stream):
+    print "getrequest called with", stream
     method = None
     while True:
         line = stream.readline()
-        print line
         if not line.strip(): 
             break
         elif not method: 
@@ -97,13 +98,14 @@ def get_file(path):
         f.close()
 
 def run_python(path, a, b): #execute python, return result
-    result = subprocess.Popen([sys.executable, path[2:]], stdout=subprocess.PIPE)
+    result = subprocess.Popen(['python', path, a, b], stdout=subprocess.PIPE)
     return result.communicate()[0]
 
 def get_content(uri):
     print 'fetching:', uri
+    a , b = 0, 0
     pstart = uri.find('?')
-    if pstart:
+    if pstart > -1:
         params = uri[pstart+1:]
         uri = uri[:pstart]
         a = params[2:5]
@@ -112,7 +114,7 @@ def get_content(uri):
         path = '.' + uri
         if os.path.isfile(path):
             if(uri.endswith('.py')): #Python file recognition
-                return (200, 'text/html', run_python(path, a, b))
+                return (200, get_mime(uri), run_python(path, a, b))
             else:
                 return (200, get_mime(uri), get_file(path))
             return (200, get_mime(uri), get_file(path))
@@ -138,7 +140,7 @@ if __name__ == '__main__':
     print 'starting %s on %s...' % (host, port)
     try:
         while True:
-            stream = listen (server)
+            stream = listen(server)
             send_response(stream, get_content(get_request(stream)))
             stream.close()
     except KeyboardInterrupt:

@@ -15,7 +15,7 @@
 # updated for UW Internet Programming in Python, by Brian Dorsey
 #
 
-import os, socket, sys, subprocess
+import os, socket, sys
 
 defaults = ['127.0.0.1', '8080']
 mime_types = {'.jpg' : 'image/jpg', 
@@ -76,6 +76,7 @@ def get_request(stream):
     method = None
     while True:
         line = stream.readline()
+        print line
         if not line.strip(): 
             break
         elif not method: 
@@ -95,19 +96,11 @@ def get_file(path):
     finally: 
         f.close()
 
-def run_python(path): #execute python, return result
-    result = subprocess.Popen([sys.executable, path[2:]], stdout=subprocess.PIPE)
-    return result.communicate()[0]
-
 def get_content(uri):
     print 'fetching:', uri
     try:
         path = '.' + uri
         if os.path.isfile(path):
-            if(uri.endswith('.py')): #Python file recognition
-                return (200, 'text/html', run_python(path))
-            else:
-                return (200, get_mime(uri), get_file(path))
             return (200, get_mime(uri), get_file(path))
         if os.path.isdir(path):
             if(uri.endswith('/')):
