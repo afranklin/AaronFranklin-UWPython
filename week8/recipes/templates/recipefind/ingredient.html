@@ -1,0 +1,17 @@
+<h1>Recipe List: Main ingredient {{ main_ingredient }}</h1>
+{% if recipe_list %}
+    <table border="1">
+    <tr>
+    <th>Dish</th>
+    <th>Main Ingredient</th>
+	<th>Total Time Required</th>
+    </tr>
+    {% for recipe in recipe_list %}
+        <tr><td><a href="/recipes/{{ recipe.id }}/">{{ recipe.name }}</a></td>
+        <td>{{ recipe.main_ingredient }}</td>
+		<td>{{ recipe.time_required }} minutes</td></tr>
+    {% endfor %}
+{% else %}
+    <p>No recipes are available.</p>
+{% endif %}
+<p><a href="/recipes/">Back to Index</a>

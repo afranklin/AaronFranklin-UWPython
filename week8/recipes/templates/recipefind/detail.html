@@ -1,0 +1,20 @@
+<h1>Recipe for {{ recipe.name }}</h1>
+<B>Total Time Required:</B> {{ recipe.time_required }} minutes
+<BR><B>Prep Time:</B> {{ recipe.prep_time }} minutes
+<BR><B>Cook Time:</B> {{ recipe.cook_time }} minutes
+<P><table border="1">
+<tr>
+<th>Ingredient</th>
+<th>Quantity</th>
+</tr>
+{% for ingredient in recipe.ingredient_set.all %}
+    <tr><td>{{ ingredient.ingredient }}</td>
+    <td>{{ ingredient.quantity}}</td></tr>
+{% endfor %}
+</table>
+<BR>
+{% for instructions in recipe.instructions_set.all %}
+    <B>Instructions:</B><BR>
+    {{instructions.instructions}}
+{% endfor %}
+<p><a href="/recipes/">Back to Index</a>
