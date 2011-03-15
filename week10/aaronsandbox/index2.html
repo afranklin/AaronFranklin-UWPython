@@ -1,0 +1,26 @@
+<h1>Recipe List: All Recipes</h1>
+<html>
+  <body>
+  <table border="1">
+    <tr>
+    <th>Dish</th>
+    <th>Main Ingredient</th>
+	<th>Total Time Required</th>
+	<th>Author</th>
+    </tr>
+    {% for recipe in recipes %}
+	  <tr><td><a href = '/detail?{{recipe.title}}'>{{ recipe.title|escape }}</a></td>
+	  <td><a href = '/ingredient?{{recipe.main_ingredient}}'>{{ recipe.main_ingredient|escape }}</td>
+	  <td>{{ recipe.time_required|escape }}</td>
+	  <td>
+      {% if recipe.author %}
+        {{ recipe.author.nickname }}
+      {% else %}
+        Anonymous
+      {% endif %}</td></tr>
+    {% endfor %}
+
+    <a href="{{ url }}">{{ url_linktext }}</a>
+	<BR><a href="/new">Add New Recipe</a>
+  </body>
+</html>

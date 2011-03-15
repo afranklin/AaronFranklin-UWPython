@@ -1,0 +1,21 @@
+<html>
+  <body>
+    {% for recipe in recipes %}
+      {% if recipe.author %}
+        <b>{{ recipe.author.nickname }}</b> wrote:
+      {% else %}
+        An anonymous person wrote:
+      {% endif %}
+      <blockquote>Title: {{ recipe.title|escape }}</blockquote>
+	  <blockquote>Time Required: {{ recipe.time_required|escape }}</blockquote>
+	  <blockquote>Main Ingredient: {{ recipe.main_ingredient|escape }}</blockquote>
+	  <blockquote>Ingredients: {{ recipe.ingredients|escape }}</blockquote>
+	  <blockquote>Instructions: {{ recipe.instructions|escape }}</blockquote>
+    {% endfor %}
+
+    <a href="{{ url }}">{{ url_linktext }}</a>
+	<a href="/">Home</a>
+	<a href="/new">Add New</a>
+
+  </body>
+</html>

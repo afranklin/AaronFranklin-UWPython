@@ -1,0 +1,18 @@
+<html>
+  <body>
+    <H1>Add A New Recipe</H1>
+    <form action="/add" method="post">
+        <div>Title: <textarea name="title" rows="1" cols="30"></textarea></div>
+		<div>Time Required: <textarea name="time_required" rows="1" cols="30"></textarea></div>
+		<div>Main Ingredient: <textarea name="main_ingredient" rows="1" cols="30"></textarea></div>
+		<div>Ingredients: <textarea name="ingredients" rows="3" cols="60"></textarea></div>
+		<div>Instructions: <textarea name="instructions" rows="3" cols="60"></textarea></div>
+        <div><input type="submit" value="Add Recipe"></div>
+    </form>
+
+    <a href="{{ url }}">{{ url_linktext }}</a>
+	<a href="/">Home</a>
+	<a href="/new">Add New</a>
+	
+  </body>
+</html>

@@ -73,6 +73,7 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
+	'debug_toolbar.middleware.DebugToolbarMiddleware',
 )
 
 ROOT_URLCONF = 'recipes.urls'
@@ -90,6 +91,9 @@ INSTALLED_APPS = (
     'django.contrib.messages',
 	'recipefind',
     'django.contrib.admin',
+	'debug_toolbar',
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
 )
+
+INTERNAL_IPS = ('127.0.0.1','192.168.1.102','255.255.255.0','192.168.56.1') #Debug Toolbar
